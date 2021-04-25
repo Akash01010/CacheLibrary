@@ -13,7 +13,6 @@ type PriorityQueue []*Item
 func (pq PriorityQueue) Len() int { return len(pq) }
 
 func (pq PriorityQueue) Less(i, j int) bool {
-	// We want Pop to give us the highest, not lowest, priority so we use greater than here.
 	return pq[i].priority < pq[j].priority
 }
 
@@ -34,8 +33,8 @@ func (pq *PriorityQueue) Pop() interface{} {
 	old := *pq
 	n := len(old)
 	item := old[n-1]
-	old[n-1] = nil  // avoid memory leak
-	item.index = -1 // for safety
+	old[n-1] = nil
+	item.index = -1
 	*pq = old[0 : n-1]
 	return item
 }
