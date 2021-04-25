@@ -69,28 +69,17 @@ func main() {
 		size:     4,
 		mapStore: map[string]MapValue{},
 		pq:       &pq}
-	// myAppCache.Add("a", "1", myCostFunc)
-	// myAppCache.Add("b", "2", myCostFunc)
-	// myAppCache.Add("c", "3", myCostFunc)
-	// myAppCache.Add("d", "4", myCostFunc)
-	// myAppCache.Get("d")
-	// myAppCache.Update("b", "2.2")
-	// myAppCache.Delete("c")
-	// fmt.Printf("%s\n", myAppCache.Get("a"))
-	// fmt.Printf("%s\n", myAppCache.Get("b"))
 
-	// for i, s := range pq {
-	// 	fmt.Println(i, s)
-	// }
 	readChan := make(chan string, 10)
 	updateChan := make(chan string, 10)
 	deleteChan := make(chan string, 10)
 	iterations := 10
+
 	go addCache(&myAppCache, iterations, readChan, updateChan, deleteChan)
 	go readCache(&myAppCache, readChan)
 	go updateCache(&myAppCache, updateChan)
 	go deleteCache(&myAppCache, deleteChan)
-	// time.Sleep(time.Duration(iterations*100) * time.Millisecond)
+
 	scanner := bufio.NewScanner(os.Stdin)
 	for scanner.Scan() {
 		s := scanner.Text()
